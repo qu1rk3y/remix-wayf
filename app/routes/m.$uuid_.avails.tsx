@@ -111,7 +111,8 @@ export const action = async ({ request, params: raw }: ActionFunctionArgs) => {
   await addMeetAvails(
     params.uuid,
     decodeURIComponent(group),
-    dates.split(",").map((d) => parseISO(d))
+    dates.split(",").map((d) => 
+      { const date = parseISO(d); date.setMinutes(date.getMinutes() - date.getTimezoneOffset()); return date })
   );
 
   return redirect(`/m/${params.uuid}`);
